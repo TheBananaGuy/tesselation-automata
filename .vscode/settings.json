@@ -1,0 +1,10 @@
+{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "files.eol": "\r\n",
+  "eslint.format.enable": true,
+  "prettier.endOfLine": "crlf",
+  "prettier.trailingComma": "es5",
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 120
+}
