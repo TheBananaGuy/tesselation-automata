@@ -2,6 +2,7 @@ import React, { useState, useCallback, useRef } from 'react';
 import produce from 'immer';
 import operations from 'constants/operations';
 import generateEmptyGrid from 'utils/generateEmptyGrid';
+import GridCell from './components/GridCell';
 
 const numRows = 34;
 const numCols = 72;
@@ -65,7 +66,9 @@ function App() {
   const randomizeGrid = () => {
     const rows = [];
     for (let i = 0; i < numRows; i++) {
-      rows.push(Array.from(Array(numCols), () => (Math.random() > 0.5 ? 1 : 0)));
+      rows.push(
+        Array.from(Array(numCols), () => (Math.random() > 0.5 ? 1 : 0))
+      );
     }
 
     setGrid(rows);
@@ -80,15 +83,10 @@ function App() {
 
   const renderGrid = grid.map((rows, i) =>
     rows.map((col, k) => (
-      <div
+      <GridCell
         key={`${i}-${k}`}
+        alive={grid[i][k]}
         onClick={() => forceCellStateTrigger(i, k)}
-        style={{
-          width: 20,
-          height: 20,
-          backgroundColor: grid[i][k] ? 'pink' : undefined,
-          border: 'solid 1px black',
-        }}
       />
     ))
   );
