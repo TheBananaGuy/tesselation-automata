@@ -1,33 +1,15 @@
 import React, { useState, useCallback, useRef } from 'react';
 import produce from 'immer';
+import operations from 'constants/operations';
+import generateEmptyGrid from 'utils/generateEmptyGrid';
 
 const numRows = 34;
 const numCols = 72;
-
-const operations = [
-  [-1, -1],
-  [-1, 0],
-  [-1, 1],
-  [0, -1],
-  [0, 1],
-  [1, -1],
-  [1, 0],
-  [1, 1],
-];
-
-const generateEmptyGrid = () => {
-  const rows = [];
-
-  for (let i = 0; i < numRows; i++) {
-    rows.push(Array.from(Array(numCols), () => 0));
-  }
-
-  return rows;
-};
+const emptyGrid = generateEmptyGrid({ length: numCols, height: numRows });
 
 function App() {
   const [grid, setGrid] = useState(() => {
-    return generateEmptyGrid();
+    return emptyGrid;
   });
 
   const [running, setRunning] = useState(false);
@@ -77,7 +59,7 @@ function App() {
   };
 
   const clearGrid = () => {
-    setGrid(generateEmptyGrid());
+    setGrid(emptyGrid);
   };
 
   const randomizeGrid = () => {
