@@ -25,23 +25,23 @@ function App() {
 
     setGrid(g => {
       return produce(g, gridCopy => {
-        for (let i = 0; i < numRows; i++) {
-          for (let k = 0; k < numCols; k++) {
+        for (let y = 0; y < numRows; y++) {
+          for (let x = 0; x < numCols; x++) {
             let neighbors = 0;
 
-            operations.forEach(([x, y]) => {
-              const newI = i + x;
-              const newK = k + y;
+            operations.forEach(([opY, opX]) => {
+              const newY = y + opY;
+              const newX = x + opX;
 
-              if (newI >= 0 && newI < numRows && newK >= 0 && newK < numCols) {
-                neighbors += g[newI][newK];
+              if (newY >= 0 && newY < numRows && newX >= 0 && newX < numCols) {
+                neighbors += g[newY][newX];
               }
             });
 
             if (neighbors < 2 || neighbors > 3) {
-              gridCopy[i][k] = 0;
-            } else if (g[i][k] === 0 && neighbors === 3) {
-              gridCopy[i][k] = 1;
+              gridCopy[y][x] = 0;
+            } else if (g[y][x] === 0 && neighbors === 3) {
+              gridCopy[y][x] = 1;
             }
           }
         }
@@ -74,19 +74,19 @@ function App() {
     setGrid(rows);
   };
 
-  const forceCellStateTrigger = (i, k) => {
+  const forceCellStateTrigger = (y, x) => {
     const newGrid = produce(grid, gridCopy => {
-      gridCopy[i][k] = gridCopy[i][k] ? 0 : 1;
+      gridCopy[y][x] = gridCopy[y][x] ? 0 : 1;
     });
     setGrid(newGrid);
   };
 
-  const renderGrid = grid.map((rows, i) =>
-    rows.map((col, k) => (
+  const renderGrid = grid.map((row, y) =>
+    row.map((col, x) => (
       <GridCell
-        key={`${i}-${k}`}
-        alive={grid[i][k]}
-        onClick={() => forceCellStateTrigger(i, k)}
+        key={`${x}-${y}`}
+        alive={grid[y][x]}
+        onClick={() => forceCellStateTrigger(y, x)}
       />
     ))
   );
