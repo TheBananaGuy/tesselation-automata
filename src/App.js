@@ -69,9 +69,12 @@ function App() {
 
   /**
    * Empty the grid / kill all cells
+   *
+   * Stops the simulation
    */
   const clearGrid = () => {
     setGrid(emptyGrid);
+    running && triggerStartStop();
   };
 
   /**
