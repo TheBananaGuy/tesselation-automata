@@ -18,6 +18,11 @@ function App() {
 
   runningRef.current = running;
 
+  /**
+   * Change the grid according to the Game of Life ruleset
+   *
+   * Essentialy simulates grid cell interaction / lifecycle
+   */
   const runSimulation = useCallback(() => {
     if (!runningRef.current) {
       return;
@@ -51,6 +56,9 @@ function App() {
     setTimeout(runSimulation, 25);
   }, []);
 
+  /**
+   * Start or stop the simulation
+   */
   const triggerStartStop = () => {
     setRunning(!running);
     if (!running) {
@@ -59,10 +67,16 @@ function App() {
     }
   };
 
+  /**
+   * Empty the grid / kill all cells
+   */
   const clearGrid = () => {
     setGrid(emptyGrid);
   };
 
+  /**
+   * Generate a new grid randomly populated with live cells
+   */
   const randomizeGrid = () => {
     const rows = [];
     for (let i = 0; i < numRows; i++) {
@@ -74,6 +88,11 @@ function App() {
     setGrid(rows);
   };
 
+  /**
+   * Force a cell to be dead or alive
+   * @param {Number} y Y axis coordinate
+   * @param {Number} x X axis coordinate
+   */
   const forceCellStateTrigger = (y, x) => {
     const newGrid = produce(grid, gridCopy => {
       gridCopy[y][x] = gridCopy[y][x] ? 0 : 1;
@@ -81,6 +100,9 @@ function App() {
     setGrid(newGrid);
   };
 
+  /**
+   * Render the grid according to the grid state at hand
+   */
   const renderGrid = grid.map((row, y) =>
     row.map((col, x) => (
       <GridCell
