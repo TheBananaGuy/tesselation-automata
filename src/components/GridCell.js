@@ -13,6 +13,7 @@ const GridCell = props => {
   return (
     <div
       key={key}
+      id={`grid-cell-${key}`}
       className={`grid__cell ${!!alive && 'grid__cell--alive'}`}
       onClick={onClick}
     />
