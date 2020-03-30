@@ -10,9 +10,10 @@ import PropTypes from 'prop-types';
  *
  * @param {Number} numRows amount of grid cells on Y axis
  * @param {Number} numCols amount of grid cells on X axis
+ * @param {Number} cellSize single cell size
  */
 const Grid = props => {
-  const { numRows, numCols } = props;
+  const { numRows, numCols, cellSize } = props;
 
   const emptyGrid = generateEmptyGrid({ length: numCols, height: numRows });
 
@@ -119,6 +120,7 @@ const Grid = props => {
         key={`${x}-${y}`}
         alive={grid[y][x]}
         onClick={() => forceCellStateTrigger(y, x)}
+        cellSize={cellSize}
       />
     ))
   );
@@ -131,7 +133,7 @@ const Grid = props => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: `repeat(${numCols}, 20px)`,
+          gridTemplateColumns: `repeat(${numCols}, ${cellSize}px)`,
         }}
       >
         {renderGrid}
@@ -143,6 +145,7 @@ const Grid = props => {
 Grid.propTypes = {
   numRows: PropTypes.number,
   numCols: PropTypes.number,
+  cellSize: PropTypes.number,
 };
 
 export default Grid;
