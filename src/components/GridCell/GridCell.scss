@@ -1,0 +1,8 @@
+.grid__cell {
+	box-sizing: border-box;
+	border: 1px solid #666;
+
+	&--alive {
+		background-color: #bada55;
+	}
+}
